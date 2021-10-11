@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+    <title>get demo image url</title>
+</head>
+<body>
+    <h1>get demo image url for id: <%= id%> </h1>
+    <form name="myForm" id="myForm" target="_myFrame" action="/cohorts/input_demo_image/<%= id%>" method="POST">
+        <input type="hidden" name="_method" value="PATCH">       
+        <p>
+            <input name="imgurl" id="imgurl" value="loading" />
+        </p>
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </form> 
+    <script>        
+        let randomURL = 'https://source.unsplash.com/random/400x300';
+        axios.get(randomURL).then( data => {
+            // the url of the random img
+            console.log(data.request.responseURL);   
+            document.getElementById("imgurl").value =data.request.responseURL;
+            setTimeout(submit,1000);
+             
+        });
+        function submit(){
+            document.forms["myForm"].submit();      
+        }
+    </script>    
+</body>
+</html>
